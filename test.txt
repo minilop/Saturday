@@ -1,0 +1,7 @@
+Analyze and trace the business context around a specific point in an existing
+  codebase. Use when the user wants to understand which business processes
+  use, depend on, or are affected by a specific database table, field, entity,
+  class, method, API, event, Job, external table, data source, or configuration.
+  Start from the user's specified point and expand outward through code
+  references, call relationships, data flows, dependencies, and related
+  business operations to identify and explain the connected business logic.
