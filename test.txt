@@ -65,7 +65,29 @@ Repeat the review cycle for at most 2 iterations.
 
 If significant issues remain after the maximum iterations, record them as unresolved issues instead of continuing the loop.
 
-### 6. Generate the Analysis Document
+After the analysis has passed review, **MUST generate a Markdown file** containing the final verified business analysis.
+
+Do not output the full analysis only in the chat response.
+
+#### Output Path
+
+Create the Markdown file under:
+
+`business-analysis/`
+
+relative to the project root.
+
+If the directory does not exist, create it.
+
+Use a descriptive filename based on the analysis target:
+
+`business-analysis/<target>.md`
+
+For example:
+
+- `business-analysis/EXT_CUSTOMER.md`
+- `business-analysis/customer-table.md`
+- `business-analysis/order-cancel.md`
 
 Generate a Markdown file containing the verified business analysis.
 
