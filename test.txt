@@ -9,6 +9,10 @@ Analyze and trace the business context around a specific point in an existing
 
 Start from a specific point in the codebase and trace outward to identify the related business processes, dependencies, and data flows.
 
+Use this skill when the user wants to understand the business context and related logic around a specific point in the codebase.
+
+Typical starting points include:
+
 - a database table or entity
 - a specific field or column
 - a class or method
@@ -18,3 +22,54 @@ Start from a specific point in the codebase and trace outward to identify the re
 - an external table or external data source
 - a configuration value
 - a specific piece of code
+
+
+## Workflow
+
+### 1. Understand the Request
+
+Identify the point or business context that the user wants to investigate.
+
+### 2. Explore the Codebase
+
+Use `code-explorer` to find relevant code, references, call relationships, data flows, and dependencies.
+
+### 3. Analyze the Business Context
+
+Provide the exploration results to `business-analyzer` and ask it to identify the related business processes and explain their relationships.
+
+### 4. Review the Analysis
+
+Provide the code exploration results and business analysis to `business-reviewer`.
+
+Ask it to verify:
+
+- important business conclusions
+- code relationships
+- data flows
+- dependencies
+- missing paths
+- unsupported assumptions
+
+### 5. Correct the Analysis
+
+If the reviewer identifies problems, revise the business analysis based on the review.
+
+Do not introduce conclusions that are not supported by the code.
+
+### 6. Produce the Result
+
+Present the verified business analysis from a business perspective.
+
+Include:
+
+1. Analysis target
+2. Related business processes
+3. Business flow
+4. How the target is used
+5. Related dependencies
+6. Important code locations
+7. Unconfirmed or ambiguous points
+
+
+
