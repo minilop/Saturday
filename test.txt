@@ -85,8 +85,8 @@ Use a Mermaid diagram to visualize the business logic and relationships.
 
 Include a table of key code locations with at least:
 
-| File | Class / Method | Line | Role |
-|---|---|---:|---|
+| ID | File | Class / Method | Line | Evidence | Business Relevance |
+|---|---|---|---:|---|---|
 
 Every important business conclusion should be traceable to one or more code locations.
 
@@ -114,20 +114,45 @@ Do not present an interpretation as a confirmed fact.
 
 Do not include every discovered reference in the final document.
 
-Select only code locations that directly support an important business conclusion, such as:
+Select only code locations that directly support an important business conclusion.
+
+A key code location should be included when it provides evidence for one or more of the following:
 
 - the entry point of a business process
 - a database read or write
+- an external table or external system access
 - a state transition
 - an important business condition
-- a data transformation
-- an external table or external system access
-- a call that connects two business components
+- a significant data transformation
+- a call that connects major business components
 - an event or message that affects the business flow
 
-Each selected code location should explain what business behavior it supports.
+For each selected location, explain what the code does and why it is relevant to the business analysis.
 
-The key code locations should be sufficient for another developer to verify the main business conclusions without reading every related reference.
+For example, if the analysis finds that an external table is used by a customer synchronization process, the final document should contain only the code locations that support this conclusion:
+
+| ID | File | Class / Method | Line | Evidence | Business Relevance |
+|---|---|---|---:|---|---|
+| E1 | `CustomerSyncJob.java` | `execute()` | 42 | Starts the synchronization process | Business entry point |
+| E2 | `CustomerRepository.java` | `findCustomers()` | 125 | Reads from `EXT_CUSTOMER` | External data source |
+| E3 | `CustomerSyncService.java` | `sync()` | 78 | Processes the retrieved customer data | Business processing |
+| E4 | `CustomerRepository.java` | `save()` | 156 | Updates the internal `Customer` table | Business state change |
+
+Do not include unrelated or redundant references only because they were found during code exploration.
+
+For example, the following would be too broad:
+
+| File | Class / Method | Line | Reason for Exclusion |
+|---|---|---:|---|
+| `Customer.java` | `getId()` | 20 | Getter does not support an important business conclusion |
+| `Customer.java` | `getName()` | 30 | Getter does not explain the business flow |
+| `CustomerRepository.java` | `findById()` | 140 | Not relevant to the analyzed synchronization flow |
+| `CustomerRepository.java` | `exists()` | 150 | Does not contribute to the identified business logic |
+| `CustomerUtils.java` | `formatName()` | 35 | Utility implementation is not relevant to the business conclusion |
+
+Prefer a small number of meaningful code locations over a large list of references.
+
+The selected code locations should be sufficient for another developer to verify the main business conclusions without reading every related reference.
 
 ### Trace Relationships
 
