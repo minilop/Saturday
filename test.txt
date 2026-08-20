@@ -59,24 +59,85 @@ If the reviewer identifies issues:
 
 1. Update the business analysis.
 2. Address the review findings.
-3. Return to **Step 4: Review the Analysis**.
+3. Return to Step 4.
 
-Repeat the review cycle for at most 3 iterations.
+Repeat the review cycle for at most 2 iterations.
 
-If significant issues remain after the maximum iterations, report them as unresolved issues instead of continuing the loop.
+If significant issues remain after the maximum iterations, record them as unresolved issues instead of continuing the loop.
 
-### 6. Produce the Result
+### 6. Generate the Analysis Document
 
-Present the verified business analysis from a business perspective.
+Generate a Markdown file containing the verified business analysis.
 
-Include:
+The document must include:
 
 1. Analysis target
-2. Related business processes
-3. Business flow
-4. How the target is used
-5. Related dependencies
-6. Important code locations
-7. Unconfirmed or ambiguous points
+2. Business overview
+3. Business logic diagram
+4. Related business processes
+5. Detailed business flow
+6. Key code locations
+7. Data flow and dependencies
+8. External tables or external systems, when applicable
+9. Unresolved or uncertain points
 
+Use a Mermaid diagram to visualize the business logic and relationships.
+
+Include a table of key code locations with at least:
+
+| File | Class / Method | Line | Role |
+|---|---|---:|---|
+
+Every important business conclusion should be traceable to one or more code locations.
+
+The generated Markdown file is the primary output of the analysis.
+
+## Analysis Principles
+
+### Code Is the Source of Truth
+
+Base the analysis on the actual implementation in the codebase.
+
+Do not infer business behavior solely from names, comments, documentation, or assumptions.
+
+### Separate Facts and Interpretation
+
+Distinguish between:
+
+- behavior directly confirmed by the code
+- business interpretation based on the code and surrounding context
+- behavior that cannot be determined from the code
+
+Do not present an interpretation as a confirmed fact.
+
+### Key Code Locations Are Evidence
+
+Do not include every discovered reference in the final document.
+
+Select only code locations that directly support an important business conclusion, such as:
+
+- the entry point of a business process
+- a database read or write
+- a state transition
+- an important business condition
+- a data transformation
+- an external table or external system access
+- a call that connects two business components
+- an event or message that affects the business flow
+
+Each selected code location should explain what business behavior it supports.
+
+The key code locations should be sufficient for another developer to verify the main business conclusions without reading every related reference.
+
+### Trace Relationships
+
+Do not stop at direct references.
+
+Follow relevant callers, callees, data flows, database operations, events, Jobs, and external services when they contribute to understanding the requested business context.
+
+### Keep the Scope Relevant
+
+Do not analyze unrelated framework code, utilities, or infrastructure.
+
+Focus on code that contributes to the requested business context.
 
