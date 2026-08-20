@@ -36,7 +36,9 @@ Use `code-explorer` to find relevant code, references, call relationships, data 
 
 ### 3. Analyze the Business Context
 
-Provide the exploration results to `business-analyzer` and ask it to identify the related business processes and explain their relationships.
+Provide the exploration results to `business-analyzer`.
+
+Ask it to identify the related business processes and explain their relationships.
 
 ### 4. Review the Analysis
 
@@ -51,11 +53,17 @@ Ask it to verify:
 - missing paths
 - unsupported assumptions
 
-### 5. Correct the Analysis
+### 5. Refine the Analysis
 
-If the reviewer identifies problems, revise the business analysis based on the review.
+If the reviewer identifies issues:
 
-Do not introduce conclusions that are not supported by the code.
+1. Update the business analysis.
+2. Address the review findings.
+3. Return to **Step 4: Review the Analysis**.
+
+Repeat the review cycle for at most 3 iterations.
+
+If significant issues remain after the maximum iterations, report them as unresolved issues instead of continuing the loop.
 
 ### 6. Produce the Result
 
@@ -70,6 +78,5 @@ Include:
 5. Related dependencies
 6. Important code locations
 7. Unconfirmed or ambiguous points
-
 
 
