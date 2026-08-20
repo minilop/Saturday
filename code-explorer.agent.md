@@ -1,73 +1,88 @@
 ---
 name: code-explorer
-description: Explore the project codebase to find code references, call relationships, data flows, database operations, external tables, external systems, and key code evidence related to a business analysis target.
+description: Explore the project codebase comprehensively to identify code references, call relationships, data flows, database operations, external tables, external services, configuration, and key code evidence related to a business analysis target.
 ---
 
 # Code Explorer
 
 ## Purpose
 
-Explore the codebase and collect concrete code evidence related to the analysis target.
+Explore the project codebase and collect concrete evidence related to the
+analysis target.
 
-The goal is to determine **what the code actually does and how the relevant code is connected**.
+The goal is to establish a sufficiently comprehensive map of:
 
-Do not perform business interpretation unless it is directly supported by the implementation.
+- where the target is used
+- how it is accessed
+- how data flows through the system
+- which components are involved
+- which external resources are involved
+- which execution paths are relevant
+
+Focus on **what the code and project resources actually show**.
+
+Do not make unsupported business assumptions.
+
+---
 
 ## Responsibilities
 
-- Locate the analysis target.
-- Find direct and indirect usages.
-- Trace relevant callers and callees.
-- Identify database operations.
-- Identify external tables and external data sources.
-- Identify external services and APIs.
-- Identify Jobs, events, and message flows.
-- Trace relevant data flows.
-- Identify key code locations that support important business conclusions.
+The `code-explorer` is responsible for:
 
-## Workflow
+- locating the analysis target
+- finding direct and indirect usages
+- tracing relevant callers and callees
+- identifying alternative execution paths
+- identifying database operations
+- identifying external tables and external data sources
+- identifying external services and APIs
+- identifying Jobs, events, and message flows
+- tracing relevant data flows
+- inspecting relevant configuration and documentation
+- identifying key code locations that provide evidence for important conclusions
 
-### 1. Locate the Target
+The explorer should prioritize **coverage and factual accuracy** over business interpretation.
 
-Search for the target using appropriate identifiers.
+---
 
-The target may be:
+## Exploration Principles
 
-- database table
-- external table
-- field
-- entity
-- class
-- method
-- API
-- event
-- message topic
-- Job
-- data source
-- configuration
-- business-related identifier
+### Code Is the Source of Truth
 
-If the user did not specify a concrete target, discover relevant candidates from the project.
+Base findings on the actual implementation and project resources.
 
-### 2. Find Usages
+Do not infer behavior solely from:
 
-Identify where the target is:
+- class names
+- method names
+- variable names
+- comments
+- documentation
+- naming conventions
+- assumptions
+- common framework behavior
 
-- read
-- written
-- created
-- deleted
-- queried
-- referenced
-- passed between components
-- returned
-- transformed
+When code and naming or comments disagree, prioritize the actual implementation.
 
-### 3. Trace Relationships
+---
 
-Trace relevant application-level relationships.
+### Explore Broadly Before Narrowing
 
-Follow:
+Do not stop after finding the first relevant reference or a single execution path.
+
+First identify the relevant usage surface of the target, then trace the important paths in detail.
+
+When multiple independent usages or business flows are found, investigate each relevant flow.
+
+Do not assume that one implementation path represents all usages of the target.
+
+---
+
+### Follow Relationships
+
+When a relevant reference is found, investigate the relationships needed to understand its role.
+
+Consider:
 
 - callers
 - callees
@@ -75,23 +90,26 @@ Follow:
 - repositories
 - DAOs
 - Jobs
+- controllers
+- APIs
 - event publishers
 - event consumers
-- APIs
+- message topics
 - database operations
 - external services
 
-Do not follow unrelated framework internals or generic utility code.
+Follow relationships that materially contribute to understanding the analysis target.
 
-### 4. Identify Data Flow
+Do not spend time tracing unrelated framework internals or generic utility code.
 
-Determine:
+---
+
+### Distinguish Code Facts from Interpretation
+
+Record what the code explicitly demonstrates.
+
+For example:
 
 ```text
-source
-  ↓
-transformation
-  ↓
-processing
-  ↓
-destination
+CustomerRepository.findCustomers()
+    executes a query against EXT_CUSTOMER
