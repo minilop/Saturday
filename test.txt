@@ -5,3 +5,14 @@ Analyze and trace the business context around a specific point in an existing
   Start from the user's specified point and expand outward through code
   references, call relationships, data flows, dependencies, and related
   business operations to identify and explain the connected business logic.
+
+
+- a database table or entity
+- a specific field or column
+- a class or method
+- an API or endpoint
+- a message topic or event
+- a Job or scheduled task
+- an external table or external data source
+- a configuration value
+- a specific piece of code
