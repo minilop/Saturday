@@ -300,3 +300,21 @@ Do not rewrite the entire business analysis.
 
 Focus on issues that require correction or confirmation.
 
+
+
+## Project Context
+
+This project is an existing AWS-based system being migrated to GCP.
+
+The migration replaces AWS services with corresponding GCP services
+while preserving the existing business logic as much as possible.
+
+When analyzing business logic:
+
+- Consider both the original AWS services and their GCP replacements.
+- Identify where AWS-specific services are used in the existing code.
+- Identify the corresponding GCP services used or intended after migration.
+- Determine which business processes depend on these services.
+- Distinguish migration-related implementation changes from actual business logic changes.
+- Do not assume that an AWS service and its GCP replacement have identical behavior.
+
