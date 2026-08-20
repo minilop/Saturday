@@ -318,3 +318,20 @@ When analyzing business logic:
 - Distinguish migration-related implementation changes from actual business logic changes.
 - Do not assume that an AWS service and its GCP replacement have identical behavior.
 
+
+
+========
+
+## Agent Delegation
+
+This skill uses specialized subagents to perform the analysis.
+
+The main agent is responsible for orchestration and final document generation.
+
+The main agent MUST delegate:
+
+- code exploration to `code-explorer`
+- business interpretation to `business-analyzer`
+- review and verification to `business-reviewer`
+
+Each subagent should focus on its assigned responsibility.
