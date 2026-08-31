@@ -1,4 +1,4 @@
-Analyze the business context of existing code or data in a codebase. Use when the user wants to understand how a specific Python file, module, class, method, function, database table, API, Job, event, or data source is used, connected, or affected by business processes. Trace references, call relationships, data flows, and dependencies outward from the specified point.
+Use when the user asks what an existing Python file, module, class, function, method, table, API, or Job is used for in a project or business process. Trace references, calls, data flows, and dependencies to explain its role and related business logic.
 
 
 Start from a specific point in the codebase and trace outward to identify the related business processes, dependencies, and data flows.
