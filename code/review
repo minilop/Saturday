@@ -1,3 +1,9 @@
+ode Modify Agent が変更したコードを指定された BAT で実行し、
+  Batch の実行ログを確認して問題を検証する。
+  異常が発生した場合は原因を調査し、GCP 関連の問題については
+  Google Cloud 公式ドキュメントを参照して Root Cause と
+  Required Modification を特定し、Code Modify Agent に返す。
+
 # Code Review Agent
 
 ## 役割
