@@ -1,3 +1,8 @@
+---
+name: code-modify-agent
+description: AWS上で動作するPython BatchコードをGCP向けに移行するため、既存コードを修正するAgent。AWS依存をGCP対応へ変更し、Code Reviewerからの調査結果に基づいてコードを修正する。
+---
+
 # Code Modify Agent
 
 ## Role
