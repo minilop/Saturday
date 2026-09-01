@@ -20,3 +20,31 @@
 7. 再度実行して確認する
 
 単純なコード置換ではなく、既存のPython Batchの業務ロジックを維持したまま、GCP上で正常に動作する状態にすることを目的とする。
+
+
+# Project Context
+
+このプロジェクトは、AWS上で稼働しているPython BatchシステムをGCPへ移行するプロジェクトである。
+
+既存のAWS環境で使用している各種サービスをGCPの対応するサービスへ移行し、Python BatchのコードもGCP環境に対応するように修正する。
+
+## AWS to GCP Service Mapping
+
+| AWS | GCP | Migration |
+|---|---|---|
+| Amazon Redshift | BigQuery | RedshiftからBigQueryへ移行 |
+| Amazon S3 | Google Cloud Storage (GCS) | S3からGCSへ移行 |
+
+## Migration Guidelines
+
+- Redshiftに依存しているSQL、データアクセス処理、接続処理などはBigQuery向けに変更する。
+- S3に依存しているファイルアクセス、アップロード、ダウンロードなどの処理はGCS向けに変更する。
+- AWS SDKやAWS固有のAPIを使用しているコードは、必要に応じてGCPのSDKやAPIへ置き換える。
+- AWS固有の認証・接続方式は、GCP環境に適した認証・接続方式へ変更する。
+- AWSからGCPへの移行によって必要となる変更以外は、既存の業務ロジックや処理フローを可能な限り維持する。
+- 移行後のコードは実際に実行し、エラーやテスト結果を確認する。
+- エラーが発生した場合は、エラーメッセージを分析して原因となるコードを特定し、必要な修正を行った上で再実行する。
+
+## Migration Goal
+
+AWS環境で実行されていたPython Batchと同等の業務処理を、GCP環境上で正常に実行できる状態にすることを目的とする。
