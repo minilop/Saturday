@@ -84,3 +84,75 @@ Review AgentはMigration Agentが行った変更をレビューする。
 
 Review Agentは原則としてコードを変更しない。
 
+
+
+
+## Workflow
+
+このSkillでは、Code Modify AgentとCode Reviewerを連携させて、AWSからGCPへのコード移行、実行、レビュー、修正を繰り返す。
+
+### 1. Migration Branchの準備
+
+Code Modify Agentが移行作業用の新しいGitブランチを作成し、そのブランチへ切り替える。
+
+以降のコード変更は、すべてこのMigration Branch上で行う。
+
+### 2. Code Migration
+
+Code Modify AgentがMigration Branch上でAWS向けの既存コードをGCP向けに修正する。
+
+主な移行対象は以下とする。
+
+- Redshift → BigQuery
+- S3 → GCS
+- AWS SDK / API → GCP SDK / API
+- AWS固有の認証・設定・データアクセス処理
+
+既存の業務ロジックは可能な限り維持する。
+
+### 3. Review and Execution
+
+Code Modify Agentによるコード修正が完了したら、Code Reviewerを実行する。
+
+Code ReviewerはMigration Branch上の最新コードを対象としてレビューを行い、関連するプログラムやテストを実行する。
+
+Code Reviewerはコードを直接変更しない。
+
+### 4. Error Investigation
+
+実行時にエラーや問題が発生した場合、Code Reviewerが原因を調査する。
+
+エラーメッセージ、Stack Trace、関連コード、データ、設定、およびAWSとGCPの仕様差異などを確認し、問題の原因と必要な修正内容を特定する。
+
+調査結果はCode Modify Agentへフィードバックする。
+
+### 5. Code Fix
+
+Code Modify AgentはCode Reviewerから受け取った調査結果に基づいて、Migration Branch上のコードを修正する。
+
+修正後、再度Code Reviewerを実行する。
+
+### 6. Iteration
+
+以下のサイクルを、問題が解決するまで繰り返す。
+
+Code Modify Agent
+→ Code Reviewer
+→ Execute
+→ Error Investigation
+→ Code Modify Agent
+→ Code Reviewer
+
+Code Reviewerが問題なしと判断した場合、移行作業を完了とする。
+
+### 7. Completion
+
+以下を確認できた時点でMigrationを完了とする。
+
+- AWS依存の必要なコードがGCP向けに移行されている
+- RedshiftがBigQueryへ移行されている
+- S3がGCSへ移行されている
+- 既存の業務ロジックが維持されている
+- 関連するプログラムまたはテストが正常に実行できる
+- Code Reviewerによるレビューで重大な問題がない
+
