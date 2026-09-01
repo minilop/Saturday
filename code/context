@@ -1,0 +1,20 @@
+# Project Context
+
+## 1. Project Overview
+
+このプロジェクトは、AWS上で稼働しているPython BatchプロジェクトをGCPへ移行するプロジェクトである。
+
+AWS側にはMigration元となる既存のBatchコードが存在し、GCP側には現在Migrationを進めているコードが存在する。
+
+このファイルでは、このプロジェクト固有のディレクトリ構成、AWSとGCPのコード対応関係、およびMigrationに必要な詳細情報を定義する。
+
+---
+
+## 2. Project Directory
+
+### AWS Existing Project
+
+AWS側の既存コードは以下に配置されている。
+
+```text
+<AWS_PROJECT_PATH>
