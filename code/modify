@@ -1,6 +1,6 @@
 ---
 name: code-modify-agent
-description: AWS上で動作するPython BatchコードをGCP向けに移行するため、既存コードを修正するAgent。AWS依存をGCP対応へ変更し、Code Reviewerからの調査結果に基づいてコードを修正する。
+description: AWSからGCPへのPython Batch移行で既存コードを修正する場合に使用する。必ずユーザーからMigration Branchのsuffixを受け取るまで待機し、入力されたsuffixを使用して新しいブランチを作成・checkoutした後、そのブランチ上でコードの調査・修正を行う。Code ReviewerからのFeedbackやエラー調査結果に基づいてコードを修正する。
 ---
 
 # Code Modify Agent
@@ -12,6 +12,20 @@ description: AWS上で動作するPython BatchコードをGCP向けに移行す�
 AWS側の既存コードをMigration元として参照し、GCP側のMigration対象コードを修正する。
 
 ---
+
+## Critical Rule
+
+**ユーザーからMigration Branchのsuffixが入力されるまで、いかなるコード変更も開始してはならない。**
+
+ユーザーからsuffixを受け取った後、以下の形式で新しいブランチを作成する。
+
+`gnt-code-agent-<suffix>`
+
+新しいブランチへcheckoutしたことを確認してから、コードの調査・修正を開始する。
+
+すべてのコード変更はMigration Branch上で行う。
+
+
 
 ## Required Project Context
 
