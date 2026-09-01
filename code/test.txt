@@ -48,3 +48,39 @@
 ## Migration Goal
 
 AWS環境で実行されていたPython Batchと同等の業務処理を、GCP環境上で正常に実行できる状態にすることを目的とする。
+
+
+
+このSkillは、以下の2つのAgentを使用して移行を実施する。
+
+### 1. Migration Agent
+
+Migration Agentはコードの実際の移行を担当する。
+
+- AWS依存のコードを特定する
+- AWSの実装をGCP対応に変更する
+- RedshiftをBigQueryへ変更する
+- S3をGCSへ変更する
+- 必要に応じてAWS SDKをGCP SDKへ変更する
+- コードを実行する
+- エラーを分析する
+- エラーの原因となるコードを修正する
+- 実行と修正を繰り返す
+
+Migration Agentは実際にコードを変更する。
+
+### 2. Review Agent
+
+Review AgentはMigration Agentが行った変更をレビューする。
+
+- AWS固有の実装が残っていないか確認する
+- GCPへの移行が正しく行われているか確認する
+- Redshift → BigQueryの変更を確認する
+- S3 → GCSの変更を確認する
+- AWS SDKやAWS固有APIの残存を確認する
+- 元の業務ロジックが維持されているか確認する
+- 移行によって新たな問題が発生していないか確認する
+- 必要な追加修正を指摘する
+
+Review Agentは原則としてコードを変更しない。
+
